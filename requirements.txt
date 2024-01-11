@@ -6,3 +6,6 @@ pycryptodome==3.17
 easydict
 playwright
 PyYAML
+apscheduler
+fastapi
+uvicorn
