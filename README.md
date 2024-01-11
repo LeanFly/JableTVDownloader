@@ -14,13 +14,15 @@
 ## 简单的安装：
 创建一个容器，挂载相应的媒体存储目录
 
-``` docker run -dit --name jab -V xxxx:/media nikolaik/python-nodejs ```
+``` docker run -dit --name jab -V xxxx:/media -v xxxx:/code nikolaik/python-nodejs ```
 
 进入容器安装依赖
 
 ``` apt update && apt intall git ffmpeg -y ```
 
 ``` npm install -g pm2 ```
+
+``` cd /code ```
 
 ``` git clone https://github.com/LeanFly/JableTVDownloader ```
 
