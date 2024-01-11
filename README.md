@@ -37,3 +37,4 @@
 ``` pm2 start app.py --interpreter=python ```
 
 
+## 已知问题是 browserless 可能因为网站的限制出现 wait a moment 的情况，这时是获取不到详情页播放链接的，也就无法获取到视频
