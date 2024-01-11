@@ -18,7 +18,9 @@
 
 进入容器安装依赖
 
-``` apt update && apt intall git ffmpeg -y ```
+``` docker exec -it jab bash ```
+
+``` apt update && apt install git ffmpeg -y ```
 
 ``` npm install -g pm2 ```
 
@@ -32,6 +34,6 @@
 
 ``` pip install -r requirements.txt -i https://mirror.baidu.com/pypi/simple```
 
-``` pm2 start app.py --interpreter=python3 ```
+``` pm2 start app.py --interpreter=python ```
 
 
