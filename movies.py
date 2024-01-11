@@ -2,7 +2,7 @@
 import requests
 from config import headers
 from bs4 import BeautifulSoup
-from selenium import webdriver
+# from selenium import webdriver
 from playwright.sync_api import sync_playwright
 import yaml
 from easydict import EasyDict
