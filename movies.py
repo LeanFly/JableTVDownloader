@@ -24,7 +24,7 @@ def movieLinks(url="https://jable.tv/hot"):
 
     page = browser.new_page()
   # dr.get(url)
-  page.goto(type_page)
+    page.goto(type_page)
   
   bs = BeautifulSoup(page.content(),"html.parser")
   a_tags = bs.select('div.img-box>a')
