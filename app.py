@@ -4,7 +4,7 @@
 from download import download
 from movies import movieLinks
 from apscheduler.schedulers.background import BackgroundScheduler
-from fastapi import FastApi
+from fastapi import FastAPI
 import uvicorn
 
 def downloader():
