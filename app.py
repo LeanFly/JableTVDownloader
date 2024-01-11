@@ -21,7 +21,7 @@ scheduler.add_job(
     days=1,
 )
 
-app = FastApi()
+app = FastAPI()
 
 @app.on_event("startup")
 def start():
