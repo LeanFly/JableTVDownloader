@@ -13,8 +13,8 @@ from delete import deleteM3u8, deleteMp4
 from cover import getCover
 from encode import ffmpegEncode
 from args import *
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+# from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
 from playwright.sync_api import sync_playwright
 import time
 import yaml
