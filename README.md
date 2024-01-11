@@ -18,7 +18,7 @@
 
 进入容器安装依赖
 
-``` apt update && apt intall git ```
+``` apt update && apt intall git ffmpeg -y ```
 
 ``` npm install -g pm2 ```
 
