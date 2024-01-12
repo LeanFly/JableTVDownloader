@@ -1,5 +1,6 @@
 
 
+from turtle import down
 import requests
 import os
 import re
@@ -27,7 +28,7 @@ def download(url):
     data = yaml.load(f, yaml.FullLoader)
     data = EasyDict(data)
     browser = data.browser
-    encode_type = data.encode
+    encode = data.encode
     media_path = data.media_path
   
   
@@ -70,12 +71,15 @@ def download(url):
     page.goto(url)
     
     res = page.content()
-  result = re.search("https://.+m3u8", res)
-  print(re.findall(r"https://(.*?)\.m3u8", res))
-  print(f'result: {result}')
-  m3u8url = result[0]
-  m3u8url = re.findall(r"https://(.*?)\.m3u8", res)[0]
-  m3u8url = f"https://{m3u8url}.m3u8" 
+    with open("content.txt", "w", encoding="utf-8") as f:
+      f.write(res)
+  # result = re.search("https://.+m3u8", res)
+  # print(re.findall(r"https://(.*?)\.m3u8", res))
+  # print(f'result: {result}')
+  # m3u8url = result[0]
+  # m3u8url = re.findall(r"https://(.*?)\.m3u8", res)[0]
+  m3u8url = re.findall(r"var hlsUrl =(.*?);", res)[0]
+  m3u8url = m3u8url.split("'")[1] 
   print(f'm3u8url: {m3u8url}')
 
   # 得到 m3u8 網址
