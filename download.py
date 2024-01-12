@@ -46,13 +46,15 @@ def download(url):
   # 建立番號資料夾
   urlSplit = url.split('/')
   dirName = urlSplit[-2]
-  if os.path.exists(f'{dirName}/{dirName}.mp4'):
+  media_name = f"{dirName}.mp4"
+  dirPath = os.path.join(media_path, dirName)
+  if os.path.exists(dirPath):
     print('番號資料夾已存在, 跳過...')
     return
-  if not os.path.exists(dirName):
-      os.makedirs(dirName)
+  if not os.path.exists(dirPath):
+      os.makedirs(dirPath)
   # folderPath = os.path.join(os.getcwd(), dirName)
-  folderPath = os.path.join(media_path, dirName)
+  folderPath = dirPath
   
   #配置Selenium參數
   # options = Options()
@@ -71,8 +73,7 @@ def download(url):
     page.goto(url)
     
     res = page.content()
-    with open("content.txt", "w", encoding="utf-8") as f:
-      f.write(res)
+
   # result = re.search("https://.+m3u8", res)
   # print(re.findall(r"https://(.*?)\.m3u8", res))
   # print(f'result: {result}')
@@ -93,7 +94,7 @@ def download(url):
   urllib.request.urlretrieve(m3u8url, m3u8file)
   time.sleep(3)
   # 得到 m3u8 file裡的 URI和 IV
-  m3u8obj = m3u8.load(os.path.join(dirName, f"{dirName}.m3u8"))
+  m3u8obj = m3u8.load(m3u8file)
   m3u8uri = ''
   m3u8iv = ''
 
