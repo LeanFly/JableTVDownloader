@@ -2,7 +2,7 @@
 browser:  ws://172.17.0.1:3333
 # 媒体库的路径
 media_path: /media
-# 转档类型，0: 不转档，1: CPU 转档，2: GPU 转档
-encode: 1
+# 转档类型，0: 不转档，1: GPU 转档，2: CPU 转档
+encode: 2
 # 分类页面 latest-updates hot
 type_page: https://jable.tv/latest-updates/
