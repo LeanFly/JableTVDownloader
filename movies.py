@@ -28,7 +28,7 @@ def movieLinks(url="https://jable.tv/hot"):
     res = page.content()
   bs = BeautifulSoup(res,"html.parser")
   a_tags = bs.select('div.img-box>a')
-  print(a_tags)
+
   for a_tag in a_tags:
     links.append(a_tag['href'])
   print('获取到 {0} 個影片'.format(len(links)))
