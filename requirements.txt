@@ -9,3 +9,4 @@ PyYAML
 apscheduler
 fastapi
 uvicorn
+curl_cffi
