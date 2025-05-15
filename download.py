@@ -20,11 +20,13 @@ from playwright.sync_api import sync_playwright
 import time
 import yaml
 from easydict import EasyDict
-
+import curl_cffi
 
   
 def download(url):
-  with open("app.yaml", "r", encoding="utf-8") as f:
+  current_file = os.path.abspath(__file__)
+  current_dir = os.path.dirname(current_file)
+  with open(os.path.join(current_dir, "app.yaml"), "r", encoding="utf-8") as f:
     data = yaml.load(f, yaml.FullLoader)
     data = EasyDict(data)
     browser = data.browser
@@ -67,19 +69,22 @@ def download(url):
 #   dr.get(url)
 #   result = re.search("https://.+m3u8", dr.page_source)
 
-  with sync_playwright() as p:
-    browser = p.chromium.connect_over_cdp(browser)    # ws://192.168.1.145:3333
-    page = browser.new_page()
-    page.goto(url)
+  # with sync_playwright() as p:
+  #   browser = p.chromium.connect_over_cdp(browser)    # ws://192.168.1.145:3333
+  #   page = browser.new_page()
+  #   page.goto(url)
     
-    res = page.content()
+  #   res = page.content()
 
   # result = re.search("https://.+m3u8", res)
   # print(re.findall(r"https://(.*?)\.m3u8", res))
   # print(f'result: {result}')
   # m3u8url = result[0]
   # m3u8url = re.findall(r"https://(.*?)\.m3u8", res)[0]
-  m3u8url = re.findall(r"var hlsUrl =(.*?);", res)[0]
+
+  res = curl_cffi.get(url, impersonate="chrome131")
+  res.raise_for_status()
+  m3u8url = re.findall(r"var hlsUrl =(.*?);", res.text)[0]
   m3u8url = m3u8url.split("'")[1] 
   print(f'm3u8url: {m3u8url}')
 
