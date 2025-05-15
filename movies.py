@@ -9,7 +9,8 @@ from easydict import EasyDict
 import curl_cffi
 import os
 
-def movieLinks(url="https://jable.tv/hot"):
+# 这里建议网址最后带上 /
+def movieLinks(url="https://jable.tv/hot/"):
   current_file = os.path.abspath(__file__)
   current_dir = os.path.dirname(current_file)
   with open(os.path.join(current_dir, "app.yaml"), "r", encoding="utf-8") as f:
