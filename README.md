@@ -1,7 +1,7 @@
 # JableTVDownload
 
 ## 下载 JableTV 视频的好帮手
-项目基于 https://github.com/hcjohn463/JableTVDownload 修改而来，从使用chrome_driver、selenium 的方式改成了使用 ~~browserless、playwright~~ curl_cffi
+项目基于 https://github.com/hcjohn463/JableTVDownload 修改而来，从使用chrome_driver、selenium 的方式改成了使用 ~~browserless、playwright~~ `curl_cffi`
 
 服务启动后会每天请求一次分类页，下载没有下载的视频
 
