@@ -14,8 +14,8 @@ from delete import deleteM3u8, deleteMp4
 from cover import getCover
 from encode import ffmpegEncode
 from args import *
-# from selenium import webdriver
-# from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from playwright.sync_api import sync_playwright
 import time
 import yaml
@@ -65,9 +65,9 @@ def download(url):
   # options.add_argument('--disable-extensions')
   # options.add_argument('--headless')
   # options.add_argument("user-agent=Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36")
-#   dr = webdriver.Chrome(options=options)
-#   dr.get(url)
-#   result = re.search("https://.+m3u8", dr.page_source)
+  # dr = webdriver.Chrome(options=options)
+  # dr.get(url)
+  # result = re.search("https://.+m3u8", dr.page_source)
 
   # with sync_playwright() as p:
   #   browser = p.chromium.connect_over_cdp(browser)    # ws://192.168.1.145:3333
@@ -82,9 +82,24 @@ def download(url):
   # m3u8url = result[0]
   # m3u8url = re.findall(r"https://(.*?)\.m3u8", res)[0]
 
-  res = curl_cffi.get(url, impersonate="chrome131")
+  # res = curl_cffi.get(url, impersonate="chrome131")
+
+  api = "http://172.17.0.1:8191/v1"
+  fsheaders = {"Content-Type": "application/json"}
+  data = {
+      "cmd": "request.get",
+      "url": url,
+      "maxTimeout": 60000
+  }
+  res = requests.post(api, headers=fsheaders, json=data)
   res.raise_for_status()
-  m3u8url = re.findall(r"var hlsUrl =(.*?);", res.text)[0]
+  res = res.json()
+  if res.get("status") != "ok":
+    return None
+  
+  html_text = res.get("solution").get("response")
+
+  m3u8url = re.findall(r"var hlsUrl =(.*?);", html_text)[0]
   m3u8url = m3u8url.split("'")[1] 
   print(f'm3u8url: {m3u8url}')
 
@@ -119,8 +134,9 @@ def download(url):
       m3u8keyurl = downloadurl + '/' + m3u8uri  # 得到 key 的網址
       # 得到 key的內容
       response = requests.get(m3u8keyurl, headers=headers, timeout=10)
+      response.raise_for_status()
       contentKey = response.content
-
+      print('contentKey', contentKey)
       vt = m3u8iv.replace("0x", "")[:16].encode()  # IV取前16位
 
       ci = AES.new(contentKey, AES.MODE_CBC, vt)  # 建構解碼器
