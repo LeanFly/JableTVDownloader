@@ -1,7 +1,19 @@
 # JableTVDownload
 
 ## 下载 JableTV 视频的好帮手
-项目基于 https://github.com/hcjohn463/JableTVDownload 修改而来，从使用chrome_driver、selenium 的方式改成了使用 ~~browserless、playwright~~ `curl_cffi`
+项目基于 https://github.com/hcjohn463/JableTVDownload 修改而来，从使用chrome_driver、selenium 的方式改成了使用 ~~browserless、playwright~~ ~~~curl_cffi`~~~  *flaresolverr*
+
+## 创建 FlareSolverr 容器 => [https://github.com/FlareSolverr/FlareSolverr](https://github.com/FlareSolverr/FlareSolverr)
+
+
+```
+docker run -d \
+  --name=flaresolverr \
+  -p 8191:8191 \
+  -e LOG_LEVEL=info \
+  --restart unless-stopped \
+  ghcr.io/flaresolverr/flaresolverr:latest
+```
 
 服务启动后会每天请求一次分类页，下载没有下载的视频
 
@@ -38,4 +50,5 @@
 
 
 ~~## 已知问题是 browserless 可能因为网站的限制出现 wait a moment 的情况，这时是获取不到详情页播放链接的，也就无法获取到视频~~
+
 
